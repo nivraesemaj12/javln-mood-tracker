@@ -1,0 +1,33 @@
+<div class="mood-form">
+  <h1>How are you feeling today?</h1>
+
+  <div class="options">
+    <label *ngFor="let option of moodOptions" class="option">
+      <input
+        type="radio"
+        name="rating"
+        [value]="option.value"
+        [(ngModel)]="selectedRating"
+      />
+      {{ option.label }}
+    </label>
+  </div>
+
+  <div class="comment">
+    <label for="comment">Comment (optional)</label>
+    <textarea
+      id="comment"
+      [(ngModel)]="comment"
+      name="comment"
+      rows="3"
+      placeholder="Anything you'd like to add?"
+    ></textarea>
+  </div>
+
+  <button (click)="submit()" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+  </button>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

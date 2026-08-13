@@ -1,0 +1,38 @@
+<div class="admin-view">
+  <h1>Mood Entries (Admin)</h1>
+
+  <div class="admin-key-entry">
+    <label for="adminKey">Admin Key</label>
+    <input
+      id="adminKey"
+      type="password"
+      [(ngModel)]="adminKey"
+      name="adminKey"
+      placeholder="Enter admin key"
+    />
+    <button (click)="loadEntries()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'View Entries' }}
+    </button>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <table *ngIf="hasLoaded && entries.length > 0">
+    <thead>
+      <tr>
+        <th>Date/Time (UTC)</th>
+        <th>Rating</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of entries">
+        <td>{{ entry.createdAtUtc }}</td>
+        <td>{{ ratingLabel(entry.rating) }}</td>
+        <td>{{ entry.comment || '—' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="hasLoaded && entries.length === 0">No mood entries yet.</p>
+</div>
